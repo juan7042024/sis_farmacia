@@ -1,0 +1,20 @@
+
+Sistema de FARMACIA EN LARAVEL 13 INICIO (15/04/2026)(version vigente de laravel 13)
+versión de node JS ->22.19.0
+versión de php(dentro de laragon) -> 8.4.12
+versión de composer(dentro de laragon) -> 2.8.4
+version de mariaDB (dentro de laragon) -> 10.6.24
+
+creacion del proyecto en laravel 13(se hizo asi por defecto el 15/04/2026) (laravel ver 13.2.0)
+"composer create-project laravel/laravel sis_farmacia" 
+
+"instalacion de la autenticacion de bootstrap" mas adelante le daremos nuestra propia plantilla
+(instalo la version 4.6)
+"composer require laravel/ui" despues de instalarse ejecutamos -> "php artisan ui bootstrap --auth" nos pregunta si queremos crear el controlador, le decimos que "yes" -> nos pide ejecutar "npm install", ejecutamos el "npm run dev"
+
+video 1: presentacion del curso y que haremos
+
+video 2: Instalacion de laravel 13 desde cero: Hola mundo, Autentiacion y conexion a base de datos, creamos el proyecto en laravel de esta forma -> ""composer create-project laravel/laravel sis_farmacia", despues de instalarse correctamente dicho proyecto
+y probamos levantarlo, despues estando en la ruta del proyecto, lo podemos levantar con "code ." para que nos habra la raiz del proyecto con visual studio code, para la autenticacion de bootstrap, para ello ponemos el "laravel ui" -> "composer require laravel/ui"
+y vemos que sea compatible, si es asi, ejecutamos el "php artisan ui bootstrap --auth", nos pregunta si queremos crear el controlador, le decimos que "yes", despues nos pide ejecutar "npm install", mientras se instale pasamos el archivo ".env" llamado mariaDB en la
+base de datos llamado "sis_farmacia", en la base de datos le ponemos el lenguaje "utf8mb4_spanish_ci", ejecutamos "php artisan migrate" y debe ejecutarse las tablas y tambien el npm run dev
