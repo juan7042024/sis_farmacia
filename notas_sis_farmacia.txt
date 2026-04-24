@@ -4,6 +4,13 @@ versión de node JS ->22.19.0
 versión de php(dentro de laragon) -> 8.4.12
 versión de composer(dentro de laragon) -> 2.8.4
 version de mariaDB (dentro de laragon) -> 10.6.24
+1-pagina de descarga de la plantilla base -> https://zuramai.github.io/mazer/docs/
+2-el index.html del template de mazer que tiene dentro se pega dentro de "welcome.blade.php"
+3-se pega del template del mazer el folder "assets" dentro asi quedando -> "C:\laragon\www\sis_farmacia\public\assets"
+4-en el "welcome.blade.php" ponemos las rutas css de este formato -> <link rel="stylesheet" href="{{ asset('assets/compiled/css/app.css') }}"> y los JS de esta forma -> "<script src="{{ asset('assets/static/js/pages/dashboard.js') }}"></script>"
+5-visitar la pagina oficial de la documentacion este -> "zuramai.github.io/mazer/docs/" -> su menu principal -> "https://zuramai.github.io/mazer/" tiene su login
+6-prender el "npm run dev" porque mazer usar partes de vite de JS para que no de errores en el proyecto
+
 
 creacion del proyecto en laravel 13(se hizo asi por defecto el 15/04/2026) (laravel ver 13.2.0)
 "composer create-project laravel/laravel sis_farmacia" 
@@ -18,3 +25,11 @@ video 2: Instalacion de laravel 13 desde cero: Hola mundo, Autentiacion y conexi
 y probamos levantarlo, despues estando en la ruta del proyecto, lo podemos levantar con "code ." para que nos habra la raiz del proyecto con visual studio code, para la autenticacion de bootstrap, para ello ponemos el "laravel ui" -> "composer require laravel/ui"
 y vemos que sea compatible, si es asi, ejecutamos el "php artisan ui bootstrap --auth", nos pregunta si queremos crear el controlador, le decimos que "yes", despues nos pide ejecutar "npm install", mientras se instale pasamos el archivo ".env" llamado mariaDB en la
 base de datos llamado "sis_farmacia", en la base de datos le ponemos el lenguaje "utf8mb4_spanish_ci", ejecutamos "php artisan migrate" y debe ejecutarse las tablas y tambien el npm run dev
+
+video 3: Instalacion del template y adaptacion del login, donde en "welcome.blade.php", donde quitamos una condicion que interfiria en la configuracion del menu que este condicion -> <!-- Styles / Scripts --> @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+si lo quitamos ya deberia de darnos la vista de laravel 13, para ello vamos a usar la plantilla de "mazer" de esta url -> "https://zuramai.github.io/mazer/docs/", oprimir "download the zip" y nos descarga "22.1 mb", despues de descargarla, lo extraemos y copiamos el codigo
+que tiene el "index.html", lo pegamos dentro de "welcome.blade.php", despues tenemos que pegar el folder de assets de la plantilla dentro de "C:\laragon\www\sis_farmacia\public" todo el folder ahi se pega, despues en el "welcome.blade.php", lo empezamos adaptar poniendole
+las rutas como en este ejemplo -> "<link rel="stylesheet" href="{{ asset('assets/compiled/css/app.css') }}">"  al igual al final donde estan los scripts quedaria de esta forma -> "<script src="{{ asset('assets/static/js/components/dark.js') }}"></script>"
+guardamos los cambios que ya deberia de mostrarse el dashboard ya con los assets metidos en el proyecto, despues adaptamos el "auth-login.html" a "login.blade.php" al igual el "app.blade.php", y ejecutamos el "npm run dev" para que no de error el vite y probamos si funciona
+
+video 4: 
