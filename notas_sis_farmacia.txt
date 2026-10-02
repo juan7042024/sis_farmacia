@@ -32,4 +32,7 @@ que tiene el "index.html", lo pegamos dentro de "welcome.blade.php", despues ten
 las rutas como en este ejemplo -> "<link rel="stylesheet" href="{{ asset('assets/compiled/css/app.css') }}">"  al igual al final donde estan los scripts quedaria de esta forma -> "<script src="{{ asset('assets/static/js/components/dark.js') }}"></script>"
 guardamos los cambios que ya deberia de mostrarse el dashboard ya con los assets metidos en el proyecto, despues adaptamos el "auth-login.html" a "login.blade.php" al igual el "app.blade.php", y ejecutamos el "npm run dev" para que no de error el vite y probamos si funciona
 
-video 4: 
+video 4: controlador admin, layout principal y ajustes globales en laravel 13, para ello crear la migracion de esta forma "php artisan make:model Ajuste -mcr", despues dentro del archivo de la migracion, crear los campos que se mapearan al guardar en la base de datos, despues ejecuar
+php artisan migrate para que se apliquen los cambios, despues requerimos de un controlador solo para el admin de esta forma "php artisan make:controller Admin", despues en "resources/views/ dentro crear el folder "/admin" dentro crear el "index.blade.php", en web.php declaramos su
+ruta de esta forma "Route::get('/home', [Admin::class, 'index'])->name('admin.index')->middleware('auth');" y debajo de este "Route::get('/admin', [Admin::class, 'index'])->name('admin.index')->middleware('auth');", despues en "/layouts" de "resources/views/", dentro el "admin.blade.php",
+pegamos lo que es de "welcome.blade.php", dentro del "welcome.blade.php", dejar solo esta linea de esta forma "@extends('layouts.admin')" que extiende del otro blade que tiene todo ese archivo, despues en "admin.blade.php" (min 16:06 reducir el menu a dashboard y menu)
