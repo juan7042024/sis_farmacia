@@ -7,4 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Ajuste extends Model
 {
     //
+
+    // declarar los campos para la asignacion masiva
+    protected $fillable = [
+        'nombre',
+        'descripcion',
+        'direccion',
+        'telefono',
+        'email',
+        'divisa',
+        'logo',
+        'web'
+    ];
 }

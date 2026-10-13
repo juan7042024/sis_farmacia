@@ -10,6 +10,7 @@ version de mariaDB (dentro de laragon) -> 10.6.24
 4-en el "welcome.blade.php" ponemos las rutas css de este formato -> <link rel="stylesheet" href="{{ asset('assets/compiled/css/app.css') }}"> y los JS de esta forma -> "<script src="{{ asset('assets/static/js/pages/dashboard.js') }}"></script>"
 5-visitar la pagina oficial de la documentacion este -> "zuramai.github.io/mazer/docs/" -> su menu principal -> "https://zuramai.github.io/mazer/" tiene su login
 6-prender el "npm run dev" porque mazer usar partes de vite de JS para que no de errores en el proyecto
+7-instalar laravel/permission -> "composer require spatie/laravel-permission:^8.0" (compatible con laravel 13.5.xx) despues publicar la version de esta forma "php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" "
 
 
 creacion del proyecto en laravel 13(se hizo asi por defecto el 15/04/2026) (laravel ver 13.2.0)
@@ -35,4 +36,12 @@ guardamos los cambios que ya deberia de mostrarse el dashboard ya con los assets
 video 4: controlador admin, layout principal y ajustes globales en laravel 13, para ello crear la migracion de esta forma "php artisan make:model Ajuste -mcr", despues dentro del archivo de la migracion, crear los campos que se mapearan al guardar en la base de datos, despues ejecuar
 php artisan migrate para que se apliquen los cambios, despues requerimos de un controlador solo para el admin de esta forma "php artisan make:controller Admin", despues en "resources/views/ dentro crear el folder "/admin" dentro crear el "index.blade.php", en web.php declaramos su
 ruta de esta forma "Route::get('/home', [Admin::class, 'index'])->name('admin.index')->middleware('auth');" y debajo de este "Route::get('/admin', [Admin::class, 'index'])->name('admin.index')->middleware('auth');", despues en "/layouts" de "resources/views/", dentro el "admin.blade.php",
-pegamos lo que es de "welcome.blade.php", dentro del "welcome.blade.php", dejar solo esta linea de esta forma "@extends('layouts.admin')" que extiende del otro blade que tiene todo ese archivo, despues en "admin.blade.php" (min 16:06 reducir el menu a dashboard y menu)
+pegamos lo que es de "welcome.blade.php", dentro del "welcome.blade.php", dejar solo esta linea de esta forma "@extends('layouts.admin')" que extiende del otro blade que tiene todo ese archivo, despues en "admin.blade.php", solo dejar el "dashboard" y el "cerrar sesion", debajo del "admin.blade.php",
+poner dentro de la vista de esta forma "@yield('content')", que pondra contenido si lo declaramos en cualquier vista, nos vamos al "index.blade.php" de "/views/admin" donde declaramos el @section('content') del "@yield('content')"
+
+video 5: modulo de ajustes globales, creamos las rutas de ajustes de esta forma "Route::get('/admin/ajustes', [AjusteController::class, 'index'])->name('admin.ajustes.index')->middleware('auth');", y este "Route::post('/admin/ajustes/create', [AjusteController::class, 'store'])->name('admin.ajustes.store')->middleware('auth');"
+despues creamos dentro de "/admin" el folder de "/ajustes" dentro el "index.blade.php", despues hay que usar el archivo de "divisas,json" dentro de "public/divisas.json", despues hacer la migracion de "ajustes", despues poner la ruta que este activa para ajustes de esta forma "<li class="sidebar-item {{ request()->routeIs('home') ? 'active' : '' }}">"
+, despues el formulario con los campos de envio del formulario de esta forma "<form action="{{ route('admin.ajustes.store') }}" method="POST" enctype="multipart/form-data">", despues declarar los campos para ajustes, y validar el guardado de la informacion de los ajustes,
+
+video 6: creacion de los roles y permisos, para ello instalar "composer require spatie/laravel-permission:^8.0", "php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" ", despues ejecutar " php artisan optimize:clear " y despues "php artisan config:clear" y de ultimo el "php artisan migrate", despues en el modelo de "users"
+declarar el artifact de esta forma "HasRoles", para ello hay que declarar las rutas del role, para ello hay que crear el controlador de esta forma "php artisan make:controller RoleController -r" (min 10:17)
