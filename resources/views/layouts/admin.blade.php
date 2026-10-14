@@ -82,6 +82,13 @@
                     <span>Ajustes</span>
                 </a>
             </li>
+
+            <li class="sidebar-item {{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.roles.index') }}" class="sidebar-link">
+                    <i class="bi bi-shield-lock"></i>
+                    <span>Roles</span>
+                </a>
+            </li>
             
             <li class="sidebar-item">
                 <a href="{{ route('logout') }}" class='sidebar-link'
@@ -136,6 +143,49 @@
 <!-- Need: Apexcharts -->
 <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
 <script src="{{ asset('assets/static/js/pages/dashboard.js') }}"></script>
+
+  <!-- 1. CDN de SweetAlert2 para uso global en todo el proyecto-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- 2. Script de Alertas Globales de SweetAlert2  de manera global que se usar-->
+    <script>
+        (function() {
+            if (typeof Swal === 'undefined') {
+                return;
+            }
+
+            const flashMessages = {
+                success: @json(session('success')),
+                error: @json(session('error')),
+                warning: @json(session('warning')),
+                info: @json(session('info')),
+                status: @json(session('status')),
+            };
+
+            const priority = ['success', 'error', 'warning', 'info', 'status'];
+            const foundType = priority.find(function(type) {
+                return !!flashMessages[type];
+            });
+
+            if (!foundType) {
+                return;
+            }
+
+            const icon = foundType === 'status' ? 'success' : foundType;
+            // mensaje de realizado de with del controlador
+            Swal.fire({
+                position: 'top-center',
+                icon: icon,
+                title: flashMessages[foundType],
+                showConfirmButton: false,
+                timer: 5000,
+            });
+
+        })();
+    </script>
+
+<!-- AQUÍ DEBE ESTAR ESTA LÍNEA OBLIGATORIAMENTE para que funcione los metodos de javascript como los errores de validacion en modales y otros mas -->
+    @stack('scripts') 
 
 </body>
 
