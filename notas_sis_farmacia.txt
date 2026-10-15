@@ -12,6 +12,22 @@ version de mariaDB (dentro de laragon) -> 10.6.24
 6-prender el "npm run dev" porque mazer usar partes de vite de JS para que no de errores en el proyecto
 7-instalar laravel/permission -> "composer require spatie/laravel-permission:^8.0" (compatible con laravel 13.5.xx) despues publicar la version de esta forma "php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" "
 
+// USO correcto de query en el ORM de laravel "
+¿Cuándo sí conviene usarl "query()"?
+
+Cuando quieres comenzar una consulta sin aplicar todavía ninguna condición:
+$query = Role::query();
+
+if ($search !== '') {
+    $query->where('name', 'like', "%{$search}%");
+}
+
+if ($active) {
+    $query->where('active', true);
+}
+
+$roles = $query->orderBy('name')->paginate(2);"
+
 
 creacion del proyecto en laravel 13(se hizo asi por defecto el 15/04/2026) (laravel ver 13.2.0)
 "composer create-project laravel/laravel sis_farmacia" 
@@ -47,3 +63,7 @@ video 6: creacion de los roles y permisos, para ello instalar "composer require 
 declarar el artifact de esta forma "HasRoles", para ello hay que declarar las rutas del role, para ello hay que crear el controlador de esta forma "php artisan make:controller RoleController -r", despues hacer las rutas de los metodos de cada accion de esta forma "Route::get('/admin/roles', [RoleController::class, 'index'])->name('admin.roles.index')->middleware('auth');"
 con el resto de metodos para poder hacer el guardado de los valores, asi como el guardar rol, actualiar rol, eliminar rol, despues en resources/views", crear el "/roles" dentro el "index.blade.php", hacer la vista de los roles, despues actualizar y poner el script de "sweetlert2" en "admin.blade.php" para que se use globalmente debajo el "@stack('scripts')" para que javascript 
 funcione dentro de la aplicacion, en el modales, poner el form de "store", "update", delete en los modales, tambien que se muestre el registro de dichos modales y validarlo con javascript para los modales, 
+
+video 7: seccion_modulo_usuario, antes de ello hay que traducir las validaciones de que se pongan en español, para ello en el ".env" cambiar a "es" y "es_ES", despues crear el folder de "lang/es" dentro el "validation.php", despues en "app.php" de "/config", cambiar a "es" y "es_ES" que son estos "'locale' => env('APP_LOCALE', 'es'),'fallback_locale' => env('APP_FALLBACK_LOCALE', 'es'),
+'faker_locale' => env('APP_FAKER_LOCALE', 'es_ES'), despues hacer un "php artisan optimize:clear", despues crear la paginacion para "index" de "/roles", y para ocultar los textos de ingles, crear el "bootstrap-5-no-summary.blade.php", despues en el "index.blade.php" de "/roles", dejar asi los roles de esta forma "{{ $roles->links('vendor.pagination.bootstrap-5-no-summary') }}"
+, despues hacer un seeder del usuario administrador (que ya tenemos), despues (min 20:00)

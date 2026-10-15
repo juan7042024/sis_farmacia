@@ -16,6 +16,31 @@
                     <h4 class="card-title mb-0">Listado de roles registrados</h4>
                 </div>
                 <div class="card-body">
+                    {{-- Seccion de buscador --}}
+                    <form method="GET" action="{{ route('admin.roles.index') }}" class="mb-3">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-12 col-md-8">
+                                <label for="search" class="form-label mb-1">Buscar rol</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                    <input type="text" name="search" id="search" class="form-control"
+                                        value="{{ $search ?? '' }}" placeholder="Escribe el nombre del rol">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 d-flex gap-2">
+                                <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                                <a href="{{ route('admin.roles.index') }}"
+                                    class="btn btn-light-secondary w-100">Limpiar</a>
+                            </div>
+                        </div>
+                    </form>
+                    {{-- fin seccion de buscador --}}
+                    {{-- mensaje de resultados de busqueda --}}
+                    @if (!empty($search))
+                        <div class="alert alert-success py-2 mb-3" role="alert">
+                            Se encontraron {{ $roles->total() }} resultado(s) para "{{ $search }}".
+                        </div>
+                    @endif
                     <div class="table-responsive">
                         <table class="table table-striped mb-0">
                             <thead>
@@ -28,7 +53,8 @@
                             <tbody>
                                 @forelse ($roles as $rol)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        {{-- toma en cuenta la paginacion de paginate el orden del registro --}}
+                                        <td>{{ $roles->firstItem() + $loop->index }}</td>
                                         <td>{{ $rol->name }}</td>
                                         <td>
                                             {{-- Botón Editar: Abre el modal específico para este rol --}}
@@ -117,6 +143,20 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                    {{-- INICIO DE LA PAGINACIÓN --}}
+                    @if ($roles->count() > 0)
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mt-4">
+                            <small class="text-muted mb-2 mb-md-0">
+                                Mostrando {{ $roles->firstItem() }} a {{ $roles->lastItem() }} de {{ $roles->total() }} registros
+                            </small>
+                            <div>
+                                {{-- para quitar textos en ingles --}}
+                                {{ $roles->links('vendor.pagination.bootstrap-5-no-summary') }}
+                            </div>
+                        </div>
+                    @endif
+                    {{-- FIN DE LA PAGINACIÓN --}}
                 </div>
             </div>
         </div>

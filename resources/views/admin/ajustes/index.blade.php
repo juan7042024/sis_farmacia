@@ -11,12 +11,6 @@
             <h4 class="card-title mb-0">Configuracion general</h4>
         </div>
         <div class="card-body">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <form action="{{ route('admin.ajustes.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 

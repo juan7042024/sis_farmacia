@@ -13,11 +13,17 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //listar pero ordenado el valor por el nombre
-        $roles = Role::query()->orderBy('name')->get();
+        // filtar el buscado recibiendo del request del search
+        $search = trim((string) request('search', ''));
+        //listar pero ordenado el valor por el nombre aparte de ponerle un buscador en los registros
+        $roles = Role::when($search !== '', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+        ->orderBy('name')->paginate(2);
 
         return view('admin.roles.index', [
-            'roles' => $roles
+            'roles' => $roles,
+            'search' => $search
         ]);
     }
 
