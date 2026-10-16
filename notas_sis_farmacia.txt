@@ -66,4 +66,7 @@ funcione dentro de la aplicacion, en el modales, poner el form de "store", "upda
 
 video 7: seccion_modulo_usuario, antes de ello hay que traducir las validaciones de que se pongan en español, para ello en el ".env" cambiar a "es" y "es_ES", despues crear el folder de "lang/es" dentro el "validation.php", despues en "app.php" de "/config", cambiar a "es" y "es_ES" que son estos "'locale' => env('APP_LOCALE', 'es'),'fallback_locale' => env('APP_FALLBACK_LOCALE', 'es'),
 'faker_locale' => env('APP_FAKER_LOCALE', 'es_ES'), despues hacer un "php artisan optimize:clear", despues crear la paginacion para "index" de "/roles", y para ocultar los textos de ingles, crear el "bootstrap-5-no-summary.blade.php", despues en el "index.blade.php" de "/roles", dejar asi los roles de esta forma "{{ $roles->links('vendor.pagination.bootstrap-5-no-summary') }}"
-, despues hacer un seeder del usuario administrador (que ya tenemos), despues (min 20:00)
+, despues hacer un seeder del usuario administrador (que ya tenemos), despues ahora sigue el modulo de usuarios donde damos la ruta home al logo de esta forma "<a href="{{ route('admin.index') }}"><img src="{{ asset('assets/compiled/svg/logo.svg') }}" alt="Logo" srcset=""></a>", despues hay que crear el controlador del usuario de esta forma "php artisan make:controller UserController -r"
+en "resources/views", crear dentro el "/admin/users/index.blade.php", la vista para crear los usuarios con su respectivo roles, 
+
+video 8: Modulo sucursales
