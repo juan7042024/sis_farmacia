@@ -87,6 +87,7 @@ class AjusteController extends Controller
 
         if($request->file('logo')) // si existe el avatar, que se actualiza
         {
+            // Al hacer una migracion si queremos subir una imagen, si da error, solo comentar e el Storgage::disk
             // sustituimos la imagen anterior para poner la nueva imagen si actualizan en dado caso
             Storage::disk('public')->delete($ajuste->logo);
              // recuperar la imagen y su nombre
@@ -110,7 +111,7 @@ class AjusteController extends Controller
 
         //-----------------------------------
         // guardar el ajuste
-        $ajuste->update();
+        $ajuste->save();
 
         return redirect()->route('admin.ajustes.index')->with('success', 'Ajustes guardados correctamente.');
     } 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Mazer Admin Dashboard</title>
+    <title>Sistema de farmacia</title>
     
     
     
@@ -94,6 +94,13 @@
                 <a href="{{ route('admin.users.index') }}" class="sidebar-link">
                     <i class="bi bi-people"></i>
                     <span>Usuarios</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item {{ request()->routeIs('admin.sucursales.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.sucursales.index') }}" class="sidebar-link">
+                    <i class="bi bi-building"></i>
+                    <span>Sucursales</span>
                 </a>
             </li>
             

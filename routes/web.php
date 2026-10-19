@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\AjusteController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SucursalController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,5 +30,12 @@ Route::get('/admin/users', [App\Http\Controllers\UserController::class, 'index']
 Route::post('/admin/users/create', [App\Http\Controllers\UserController::class, 'store'])->name('admin.users.store')->middleware('auth');
 Route::put('/admin/users/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('admin.users.update')->middleware('auth');
 Route::delete('/admin/users/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.users.destroy')->middleware('auth');
+
+// RUTA DE LAS SUCURSALES
+Route::get('/admin/sucursales', [SucursalController::class, 'index'])->name('admin.sucursales.index')->middleware('auth');
+Route::post('/admin/sucursales/create', [SucursalController::class, 'store'])->name('admin.sucursales.store')->middleware('auth');
+Route::put('/admin/sucursales/{id}', [SucursalController::class, 'update'])->name('admin.sucursales.update')->middleware('auth');
+Route::delete('/admin/sucursales/{id}', [SucursalController::class, 'destroy'])->name('admin.sucursales.destroy')->middleware('auth');
+
 
 
