@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\AjusteController;
+use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SucursalController;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,13 @@ Route::get('/admin/sucursales', [SucursalController::class, 'index'])->name('adm
 Route::post('/admin/sucursales/create', [SucursalController::class, 'store'])->name('admin.sucursales.store')->middleware('auth');
 Route::put('/admin/sucursales/{id}', [SucursalController::class, 'update'])->name('admin.sucursales.update')->middleware('auth');
 Route::delete('/admin/sucursales/{id}', [SucursalController::class, 'destroy'])->name('admin.sucursales.destroy')->middleware('auth');
+
+// RUTA DE LOS EMPLEADOS
+Route::get('/admin/empleados', [EmpleadosController::class, 'index'])->name('admin.empleados.index')->middleware('auth');
+Route::post('/admin/empleados/create', [EmpleadosController::class, 'store'])->name('admin.empleados.store')->middleware('auth');
+Route::put('/admin/empleados/{id}', [EmpleadosController::class, 'update'])->name('admin.empleados.update')->middleware('auth');
+Route::delete('/admin/empleados/{id}', [EmpleadosController::class, 'destroy'])->name('admin.empleados.destroy')->middleware('auth');
+
 
 
 

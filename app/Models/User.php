@@ -18,6 +18,10 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> tambien el de "HasRoles" de laravel Spatie*/
     use HasFactory, Notifiable, HasRoles;
 
+    public function empleados(){
+        return $this->hasMany(Empleados::class, 'usuario_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *

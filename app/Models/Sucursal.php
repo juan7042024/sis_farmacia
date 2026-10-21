@@ -19,4 +19,9 @@ class Sucursal extends Model
     protected $casts = [
         'estado' => 'boolean',
     ];
+
+    // relacion de 1 sucursal puede tener a muchos empleados
+    public function empleados(){
+        return $this->hasMany(Empleados::class, 'sucursal_id');
+    } 
 }

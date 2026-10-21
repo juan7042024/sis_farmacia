@@ -103,6 +103,13 @@
                     <span>Sucursales</span>
                 </a>
             </li>
+
+            <li class="sidebar-item {{ request()->routeIs('admin.empleados.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.empleados.index') }}" class="sidebar-link">
+                    <i class="bi bi-person-badge"></i>
+                    <span>Empleados</span>
+                </a>
+            </li>
             
             <li class="sidebar-item">
                 <a href="{{ route('logout') }}" class='sidebar-link'
