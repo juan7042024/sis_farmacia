@@ -75,8 +75,9 @@ de la seccion de las sucursales, despues empezamos hacer el "/sucursales/index.b
 
 video 9: Modulo de empleados Modulo de usuarios, para ello creamos el modelo de empleados de esta forma "php artisan make:model Empleados -mcr", la llave foranea lo dejamos en "restrict" para que no borre los datos y que elimine en cascada que ya tiene asociados, y los demas campos que tiene el modelo, despues ejecutar el "php artisan migrate" para que se cree la tabla hacia la base de datos, 
 despues hay que generar en el modelo de "Empleado.php", declarar los campos para la asignacion masiva de registros al igual la relacion, donde tenemos que poner la relacion que tiene el modelo de "Empleados" con el resto, despues sigue la vista de las sucursales tomando en cuenta las migraciones dentro de "/empleados" despues hacer la ruta en "web.php", para los empleados donde se haran 
-las acciones, despues en "usuario" y en "sucursal" poner la relacion de "hasMany" el "index.blade.php", dentro de "/empleados", despues hacer el "Index" de "/empleados" y el modal, lo que sigue (min 35:27 regresar minutos antes en el "min 26:25" para hacer el metodo store y el update y el delete), 
+las acciones, despues en "usuario" y en "sucursal" poner la relacion de "hasMany" el "index.blade.php", dentro de "/empleados", despues hacer el "Index" de "/empleados" y el modal, lo que sigue es el metodo store de dicho modal donde asignamos el rol de EMPLEADO en "model has role" asociado con el id del USER que creamos tambien para el mismo, y tambien sigue el metodo "update", que se actualize si tiene
+o no la imagen dentro del modal,
 
-
+video 10: ajustar el sistema, de 
 
 
