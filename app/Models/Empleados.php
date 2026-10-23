@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Empleados extends Model
 {
+    // uso de factory para llenar valores de ejemplo a empleado
+    use HasFactory;
     //
+    protected $table = 'empleados';
 
     protected $fillable = [
         'usuario_id',

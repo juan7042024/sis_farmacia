@@ -235,6 +235,17 @@ class EmpleadosController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //buscar el id del empleado
+        $empleado = Empleados::findOrFial($id);
+        // si existe el usuario del empleado lo borra el rol y el usuario que esta asociado al empleado
+        if($empleado->usuario){
+            // borrar el rol del empleado del usuario
+            $empleado->usuario->syncRoles([]);
+            // borrar el usuario asociado al empleado de la relacion
+            $empleado->usuario->delete();
+        }
+        // borrar el empleado
+        $empleado->delete();
+        return to_route('admin.empleados.index')->with('success', 'Empleado eliminado exitosamente');
     }
 }

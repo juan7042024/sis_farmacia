@@ -78,6 +78,11 @@ despues hay que generar en el modelo de "Empleado.php", declarar los campos para
 las acciones, despues en "usuario" y en "sucursal" poner la relacion de "hasMany" el "index.blade.php", dentro de "/empleados", despues hacer el "Index" de "/empleados" y el modal, lo que sigue es el metodo store de dicho modal donde asignamos el rol de EMPLEADO en "model has role" asociado con el id del USER que creamos tambien para el mismo, y tambien sigue el metodo "update", que se actualize si tiene
 o no la imagen dentro del modal,
 
-video 10: ajustar el sistema, de 
+video 10: ajustar el sistema, ajustar en español texto,  ahora hacer el inicio de los roles que tiene dentro, tambien mostrar informacion, eso dentro del controlador de "Admin.php", despues usar factories donde crearemos 10 empleados para alimentar el sistema dentro de "sucursal.php" declarar el "use HasFactory", despues crear el seeder de la sucursal de esta forma "php artisan make:seeder SucursalSeeder", en el 
+"DatabaseSeeder.php", llamarlo de esta forma "SucursalSeeder::class", despues el "factory" asi "php artisan make:factory SucursalFactory", dentro crear el formato del registro del arreglo que debe geneararse, en el "SucursalSeeder", crear la cantidad de registros en base al formato de registro de factory de esta forma "Sucursal::factory()->count(5)->create();", despues de manera similar con el "EmpleadoFactory" darle formato 
+para crear empleados y despues en el seeder decirle cuantos empleados generar en base a ese formato el "EmpleadoFactory"(se crea con "php artisan make:factory EmpleadoFactory") a "EmpleadoSeeder" (se crea con "php artisan make:seeder EmpleadoSeeder")(hay que crear los 2 archivos) en el factory hacer el formato para la creacion de los empleados, y en el seeder crear los empleados que tienen roles y usuarios asociados a dichos registros
+, despues corregir el "destroy" de empleados poniendo si el empleado existe, se borra el rol que tiene el empleado y a su vez el usuario que esta relacionado con el empleado, despues hacer un "php artisan migrate:fresh --seed" para que aplique los cambios
+
+video 11: 
 
 

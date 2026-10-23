@@ -15,12 +15,15 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
+    // para aplicar cambios en los seeders ejecutar asi "php artisan migrate:fresh --seed"
     public function run(): void
     {
         $this->call([
             // llamar los seeders que vamos a ejecutar
             RoleSeeder::class,
-            AjusteSeeder::class
+            AjusteSeeder::class,
+            SucursalSeeder::class,
+            EmpleadosSeeder::class
         ]);
         // User::factory(10)->create();
         // se crea este usuario por DEFECTO ejecutanto un "php artisan migrate:fresh --seed" que es el SUPER ADMINISTRADOR DE TODO EL SISTEMA

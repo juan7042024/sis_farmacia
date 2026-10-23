@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 // asi se creo "php artisan make:model Sucursal -mcr"
 class Sucursal extends Model
 {
+    //declaracion del factory para llenar de registro al modelo para las pruebas
+    use HasFactory;
     //
-
     protected $fillable = [
         'nombre',
         'direccion',
