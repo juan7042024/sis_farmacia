@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\AjusteController;
+use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SucursalController;
@@ -43,6 +44,12 @@ Route::get('/admin/empleados', [EmpleadosController::class, 'index'])->name('adm
 Route::post('/admin/empleados/create', [EmpleadosController::class, 'store'])->name('admin.empleados.store')->middleware('auth');
 Route::put('/admin/empleados/{id}', [EmpleadosController::class, 'update'])->name('admin.empleados.update')->middleware('auth');
 Route::delete('/admin/empleados/{id}', [EmpleadosController::class, 'destroy'])->name('admin.empleados.destroy')->middleware('auth');
+
+// RUTA DE LAS CATEGORIAS
+Route::get('/admin/categorias', [CategoriasController::class, 'index'])->name('admin.categorias.index')->middleware('auth');
+Route::post('/admincategoriass/create', [CategoriasController::class, 'store'])->name('admin.categorias.store')->middleware('auth');
+Route::put('/admin/categorias/{id}', [CategoriasController::class, 'update'])->name('admin.categorias.update')->middleware('auth');
+Route::delete('/admin/categorias/{id}', [CategoriasController::class, 'destroy'])->name('admin.categorias.destroy')->middleware('auth');
 
 
 

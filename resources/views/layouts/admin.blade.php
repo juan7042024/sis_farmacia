@@ -104,6 +104,13 @@
                 </a>
             </li>
 
+            <li class="sidebar-item {{ request()->routeIs('admin.categorias.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.categorias.index') }}" class="sidebar-link">
+                    <i class="bi bi-tags-fill"></i>
+                    <span>Categorías</span>
+                </a>
+            </li>
+
             <li class="sidebar-item {{ request()->routeIs('admin.empleados.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.empleados.index') }}" class="sidebar-link">
                     <i class="bi bi-person-badge"></i>
