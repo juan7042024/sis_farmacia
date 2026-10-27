@@ -8,7 +8,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
-// asi se creo php "artisan make:seeder EmpleadoSeeder"
+// asi se creo php "artisan make:seeder EmpleadosSeeder"
 class EmpleadosSeeder extends Seeder
 {
     // para el seeder

@@ -22,7 +22,7 @@ class CategoriasController extends Controller
             $query->where('nombre', 'like', '%' . $search . '%');
         })
         ->orderBy('nombre')
-        ->paginate(10);
+        ->paginate(2);
 
         return view('admin.categorias.index', [
             'categorias' => $categorias,

@@ -15,6 +15,8 @@ version de mariaDB (dentro de laragon) -> 10.6.24
 // USO correcto de query en el ORM de laravel "
 ¿Cuándo sí conviene usarl "query()"?
 
+en las migraciones, el orden si importa, ya que primero hay que crear los modelos que no tienen llaves foraneas, de ultimos los modelos que tienen llaves foraneas ya que asi toma de referencia los modelos anteriores cuando se cree dicha llave foranea
+
 Cuando quieres comenzar una consulta sin aplicar todavía ninguna condición:
 $query = Role::query();
 
@@ -85,6 +87,13 @@ para crear empleados y despues en el seeder decirle cuantos empleados generar en
 
 video 11: Modulo de Categorias para clasificar los productos, para ello pedir la migracion para la tabla, para ello hay que crear la migracion de las categorias con el modelo de esta forma "php artisan make:model Categorias -mcr", llenar la migracion de los campos que necesitara, despues en el index del controlador, hacer el filtro y el listado de las categorias en paginacion, despues en web.php hacer la ruta para el listado de las 
 categorias de esta forma  "Route::get('/admin/categorias', [CategoriasController::class, 'index'])->name('admin.categorias.index')->middleware('auth');", despues hacer el "index.blade.php" de "/categorias", despues en el modelos de "categorias.php", declarar el campo que vamos a usar realmente, ejecutar la migracion de "php artisan migrate" para que se cree dichos campos, despues hacer el metodo "store, update y destroy" de las categorias,
-despues hacer el factory para generar 10 categorias por defecto (min 10:36)
+despues hacer el factory para generar 10 categorias por defecto de esta forma "php artisan make:factory CategoriasFactory", dentro poner los formatos de registro para la generacion de los dactories, despues hay que generar el seeder de la categorias de esta forma "php artisan make:seeder CategoriasSeeder", donde generamos 10 registros en base a las categorias de esta forma "Categorias::factory()->count(10)->create();", en el "DatabaseSeeder"
+declarar el seeder, despues en el modelo asegurarnos de tener el "use HasFactory;" para que se ejecute de esta forma "CategoriasSeeder::class", ejecutar el "php artisan migrate:fresh --seed" con ello nos genera los registros en los que declaramos en el factory,
+
+video 12: Modulo de productos para laravel, para ello hay que crear la migracion de la tabla de esta forma "php artisan make:model productos -mcr", donde tendra varias llaves foraneas y los campos en base al modelo, despues hay que crear el modelo de laboratorio con su migracion, controlador de esta forma "php artisan make:model Laboratorio -mcr", en la migracion crear los campos que se crearan en el modelo de "laboratorios" despues en "productos"
+hacemos la llave foranea de esta forma "$table->foreignId('laboratorio_id')->nullable()->constrained('laboratorios')->onDelete('set null');", ya que no todos los productos estan asociados al laboratorio por eso se pone null, si da error al crear los modelos, hacemos las migraciones al orden de las llaves foraneas, ejemplo donde primero en la seccion que le competece a los productos, primero la migracion de categorias(que no tienen llaves foraneas),
+despues laboratorios, de ultimo productos que tienen las llaves foraneas de los anteriores modelos para que haga mejor vinculo, despues ejecutar "php artisan migrate:fresh --seed" ya se creara el modelo de "productos" y "laboratorios" con las relaciones
+
+video 13: 
 
 

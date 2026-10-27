@@ -18,11 +18,24 @@ class DatabaseSeeder extends Seeder
     // para aplicar cambios en los seeders ejecutar asi "php artisan migrate:fresh --seed"
     public function run(): void
     {
+        // crear una sucursal por defecto
+        Sucursal::firstOrCreate(
+            [
+                'nombre' => 'CASA MATRIZ',
+            ],
+            [
+                'direccion' => 'AV principal 123 centro',
+                'telefono' => '12345678',
+                'estado' => '1',
+            ]
+        );
+        
         $this->call([
             // llamar los seeders que vamos a ejecutar
             RoleSeeder::class,
             AjusteSeeder::class,
             SucursalSeeder::class,
+            CategoriasSeeder::class,
             EmpleadosSeeder::class
         ]);
         // User::factory(10)->create();
@@ -39,16 +52,6 @@ class DatabaseSeeder extends Seeder
         // vincular el super admin con el usuario por defecto que tiene control total del sistema
         $admin->syncRoles([$superAdminRole->name]);
 
-        // crear una sucursal por defecto
-        Sucursal::firstOrCreate(
-            [
-                'nombre' => 'CASA MATRIZ',
-            ],
-            [
-                'direccion' => 'AV principal 123 centro',
-                'telefono' => '12345678',
-                'estado' => '1',
-            ]
-        );
+        
     }
 }
