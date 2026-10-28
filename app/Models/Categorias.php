@@ -14,4 +14,9 @@ class Categorias extends Model
         'nombre'
     ];
 
+    // relacion de llave primaria de origen (hasMany) donde 1 categoria tiene muchos productos
+    public function productos(){
+        return $this->hasMany(productos::class, 'categoria_id');
+    }
+
 }

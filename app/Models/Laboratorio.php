@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Laboratorio extends Model
 {
     //
+
+    // relacion de llave primaria de origen (hasMany) donde 1 laboratorio tiene muchos productos
+    public function productos(){
+        return $this->hasMany(productos::class, 'laboratorio_id');
+    }
 }

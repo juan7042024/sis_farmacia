@@ -39,6 +39,12 @@ Route::post('/admin/sucursales/create', [SucursalController::class, 'store'])->n
 Route::put('/admin/sucursales/{id}', [SucursalController::class, 'update'])->name('admin.sucursales.update')->middleware('auth');
 Route::delete('/admin/sucursales/{id}', [SucursalController::class, 'destroy'])->name('admin.sucursales.destroy')->middleware('auth');
 
+// RUTAS DE LOS LABORATORIOS
+Route::get('/admin/laboratorios', [App\Http\Controllers\LaboratorioController::class, 'index'])->name('admin.laboratorios.index')->middleware('auth');
+Route::post('/admin/laboratorios', [App\Http\Controllers\LaboratorioController::class, 'store'])->name('admin.laboratorios.store')->middleware('auth');
+Route::put('/admin/laboratorios/{id}', [App\Http\Controllers\LaboratorioController::class, 'update'])->name('admin.laboratorios.update')->middleware('auth');
+Route::delete('/admin/laboratorios/{id}', [App\Http\Controllers\LaboratorioController::class, 'destroy'])->name('admin.laboratorios.destroy')->middleware('auth');
+
 // RUTA DE LOS EMPLEADOS
 Route::get('/admin/empleados', [EmpleadosController::class, 'index'])->name('admin.empleados.index')->middleware('auth');
 Route::post('/admin/empleados/create', [EmpleadosController::class, 'store'])->name('admin.empleados.store')->middleware('auth');
