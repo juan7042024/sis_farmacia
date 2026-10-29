@@ -111,6 +111,13 @@
                 </a>
             </li>
 
+            <li class="sidebar-item {{ request()->routeIs('admin.laboratorios.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.laboratorios.index') }}" class="sidebar-link">
+                    <i class="bi bi-capsule"></i>
+                    <span>Laboratorios</span>
+                </a>
+            </li>
+
             <li class="sidebar-item {{ request()->routeIs('admin.empleados.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.empleados.index') }}" class="sidebar-link">
                     <i class="bi bi-person-badge"></i>
