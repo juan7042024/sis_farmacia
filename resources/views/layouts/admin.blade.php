@@ -118,6 +118,13 @@
                 </a>
             </li>
 
+            <li class="sidebar-item {{ request()->routeIs('admin.forma_farmaceuticas.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.forma_farmaceuticas.index') }}" class="sidebar-link">
+                    <i class="bi bi-capsule me-2"></i>
+                    <span>Forma Farmacéutica</span>
+                </a>
+            </li>
+
             <li class="sidebar-item {{ request()->routeIs('admin.empleados.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.empleados.index') }}" class="sidebar-link">
                     <i class="bi bi-person-badge"></i>

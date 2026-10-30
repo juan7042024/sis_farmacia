@@ -100,6 +100,7 @@ el objetivo es que este de ultimo la migracion, despues ejecutar "php artisan mi
 "presentacion", y en cada modelos anteriormente mencionado, es un "hasMany" de la llave primaria a la relacion de llave foranea, despues nos vamos a "web.php" a crear las rutas de laboratorio de esta forma "Route::get('/admin/laboratorios', [App\Http\Controllers\LaboratorioController::class, 'index'])->name('admin.laboratorios.index')->middleware('auth');", despues poner en el "admin.blade.php" la seccion de "laboratorios", en el controlador hacemos el metodo "index"
 y creamos el "index.blade.php" de "/laboratorios" donde creamos el folder y dentro el "index" crear la consulta para buscar laboratorios donde, tomamos la base de la vista de index de "/categorias", y lo pegamos dentro del index de "/laboratorios",  hacemos el metodo store, update, destroy, 
 
-video 14: 
+video 14: seccion de formas farmaceuticas, para ello hay que crear el modulo de "forma farmaceutica", creando el acceso, despues en "web.php", hacer la rutas de esta forma "Route::get('/admin/forma-farmaceuticas', [App\Http\Controllers\FormaFarmaceuticaController::class, 'index'])->name('admin.forma_farmaceuticas.index')->middleware('auth');", despues hay que crear el folder de la vista de "/forma_farmaceuticas" dentro el "index.blade.php", despues dentro 
+sera similar al de "laboratorios", despues el metodo "store" y el metodo "update" y el "destroy", ahora le creamos el seeder con factory de laboratorios (min 9:49)
 
 
