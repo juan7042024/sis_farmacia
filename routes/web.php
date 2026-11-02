@@ -51,6 +51,12 @@ Route::post('/admin/forma-farmaceuticas/create', [App\Http\Controllers\FormaFarm
 Route::put('/admin/forma-farmaceuticas/{id}', [App\Http\Controllers\FormaFarmaceuticaController::class, 'update'])->name('admin.forma_farmaceuticas.update')->middleware('auth');
 Route::delete('/admin/forma-farmaceuticas/{id}', [App\Http\Controllers\FormaFarmaceuticaController::class, 'destroy'])->name('admin.forma_farmaceuticas.destroy')->middleware('auth');
 
+// RUTA PARA LAS PRESENTACIONES
+Route::get('/admin/presentaciones', [App\Http\Controllers\PresentacionController::class, 'index'])->name('admin.presentaciones.index');
+Route::post('/admin/presentaciones/create', [App\Http\Controllers\PresentacionController::class, 'store'])->name('admin.presentaciones.store');
+Route::put('/admin/presentaciones/{id}', [App\Http\Controllers\PresentacionController::class, 'update'])->name('admin.presentaciones.update');
+Route::delete('/admin/presentaciones/{id}', [App\Http\Controllers\PresentacionController::class, 'destroy'])->name('admin.presentaciones.destroy');
+
 // RUTA DE LOS EMPLEADOS
 Route::get('/admin/empleados', [EmpleadosController::class, 'index'])->name('admin.empleados.index')->middleware('auth');
 Route::post('/admin/empleados/create', [EmpleadosController::class, 'store'])->name('admin.empleados.store')->middleware('auth');

@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\FormaFarmaceutica;
+use App\Models\Laboratorio;
+use App\Models\Presentacion;
 use App\Models\Sucursal;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -38,12 +41,18 @@ class DatabaseSeeder extends Seeder
             CategoriasSeeder::class,
             EmpleadosSeeder::class
         ]);
+
+        // generacion de los registros de "LaboratorioFactory" y de "FormaFarmaceutica"
+        Laboratorio::factory()->count(20)->create();
+        FormaFarmaceutica::factory()->count(20)->create();
+        Presentacion::factory()->count(20)->create();
         // User::factory(10)->create();
         // se crea este usuario por DEFECTO ejecutanto un "php artisan migrate:fresh --seed" que es el SUPER ADMINISTRADOR DE TODO EL SISTEMA
         $admin = User::firstOrCreate(
             ['email' => 'admin@admin.com'],
             ['name' => 'admin', 'password' => bcrypt('12345678')]
         );
+
         // crear rol
         $superAdminRole = Role::query()->firstOrCreate([
             'name' => 'SUPER ADMIN',
