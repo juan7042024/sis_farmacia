@@ -132,6 +132,13 @@
                 </a>
             </li>
 
+            <li class="sidebar-item {{ request()->routeIs('admin.productos.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.productos.index') }}" class="sidebar-link">
+                    <i class="bi bi-bag-fill"></i>
+                    <span>Productos</span>
+                </a>
+            </li>
+
             <li class="sidebar-item {{ request()->routeIs('admin.empleados.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.empleados.index') }}" class="sidebar-link">
                     <i class="bi bi-person-badge"></i>

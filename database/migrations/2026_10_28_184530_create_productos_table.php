@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('laboratorio_id')->nullable()->constrained('laboratorios')->onDelete('set null');
             $table->foreignId('forma_farmaceutica_id')->nullable()->constrained('forma_farmaceuticas')->onDelete('set null');
             $table->foreignId('presentacion_id')->nullable()->constrained('presentacions')->onDelete('set null');
+            
             $table->string('codigo_producto', 50)->nullable()->unique();
             $table->string('codigo_barra', 50)->nullable()->unique();
             $table->string('nombre_comercial',255);

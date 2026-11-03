@@ -12,8 +12,34 @@ version de mariaDB (dentro de laragon) -> 10.6.24
 6-prender el "npm run dev" porque mazer usar partes de vite de JS para que no de errores en el proyecto
 7-instalar laravel/permission -> "composer require spatie/laravel-permission:^8.0" (compatible con laravel 13.5.xx) despues publicar la version de esta forma "php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" "
 
+funciones en laravel php
+2. Tipos utilizados frecuentemente en Laravel
+Estos son especialmente útiles cuando trabajas con controladores:
+
+Tipo de respuesta en las funciones despues del " : "en el "public function index() : View <-(abajo dice cada uno de ello)
+
+Uso
+
+View "Devuelve una vista Blade"
+
+JsonResponse "Devuelve una respuesta JSON"
+
+RedirectResponse "Redirecciona a otra ruta"
+
+Response "Devuelve una respuesta HTTP"
+
+BinaryFileResponse "Descarga un archivo"
+
+StreamedResponse "Envía contenido mediante streaming"
+
+Collection "Devuelve una colección de Laravel"
+
+Model "Devuelve un modelo Eloquent"
+
+Builder "Devuelve un constructor de consultas"
+
 // USO correcto de query en el ORM de laravel "
-¿Cuándo sí conviene usarl "query()"?
+¿Cuándo sí conviene usar "query()"?
 
 en las migraciones, el orden si importa, ya que primero hay que crear los modelos que no tienen llaves foraneas, de ultimos los modelos que tienen llaves foraneas ya que asi toma de referencia los modelos anteriores cuando se cree dicha llave foranea
 
@@ -107,4 +133,8 @@ los campos la cantidad que vamos a darle formato de que tipo de valores debe de 
 video 15: modulo de presentaciones, para ello creamos las rutas en "web.php", para la seccion de las presentaciones, de esta forma "Route::get('/admin/presentaciones', [App\Http\Controllers\PresentacionController::class, 'index'])->name('admin.presentaciones.index');", despues crear la vista "index.blade.php" de "/presentaciones", despues crear el "store", "update", "destroy" de las presentaciones con sus validaciones, despues crear el factory y en el modelo ponerlo de 
 modo factory, asi crandolo "php artisan make:factory PresentacionFactory", despues de poner el formato, declarar el factory en la cantidad de registros que queremos en el "DatabaseSeeder" de esta forma "Presentacion::factory()->count(20)->create();" en el modelo la asignacion masiva y el factory y setear el nombre, despues ejecutar "php artisan migrate:fresh --seed" para que se genere el resto con lo nuevo de las presentaciones,
 
-video 16: 
+video 16: creacion del modulo de productos, solo en el modelo de "User", hacer la relacion origen de llave primaria donde de 1 usuario puede ser 1 empleado (hasMany), despues nos vamos a la migracion de "productos" a ver que tiene 4 llaves foraneas para poder construir un producto y aparte los campos a rellenar, despues en "web.php", crear las rutas para los productos como en este ejemplo -> "Route::get('/admin/productos', [App\Http\Controllers\ProductosController::class, 'index'])->name('admin.productos.index')->middleware('auth');"
+despues crear la seccion del boton de los productos de esta forma "<li class="sidebar-item {{ request()->routeIs('admin.productos.*') ? 'active' : '' }}">", despues creamos dentro del folder de "/admin" el folder de "productos", dentro poner los "index", "show", "edit", "create" con "blade", donde creamos la vista index de "productos" en base a la vista de presentaciones, donde no ocuparemos los modales de "create" y de "edit", ya que sera un formulario mas grande
+
+video 17: creacion del formulario de "create", nos vamos al controlador para retornar docha vista, ya que en el metodo de "create", listaremos los nombres con el id de la relacion que tiene para que escoga al momento de crear un producto de esta forma "$categorias = Categorias::orderBy('nombre')->get(['id', 'nombre']); $laboratorios = Laboratorio::orderBy('nombre')->get(['id', 'nombre']); $formaFarmaceuticas = FormaFarmaceutica::orderBy('nombre')->get(['id', 'nombre']); $presentaciones = Presentacion::orderBy('nombre')->get(['id', 'nombre']);
+en el return lo mandamos a la vista, 

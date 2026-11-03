@@ -70,5 +70,15 @@ Route::put('/admin/categorias/{id}', [CategoriasController::class, 'update'])->n
 Route::delete('/admin/categorias/{id}', [CategoriasController::class, 'destroy'])->name('admin.categorias.destroy')->middleware('auth');
 
 
+//RUTA DE LOS PRODUCTOS
+Route::get('/admin/productos', [App\Http\Controllers\ProductosController::class, 'index'])->name('admin.productos.index')->middleware('auth');
+Route::get('/admin/productos/create', [App\Http\Controllers\ProductosController::class, 'create'])->name('admin.productos.create')->middleware('auth');
+Route::post('/admin/productos/create', [App\Http\Controllers\ProductosController::class, 'store'])->name('admin.productos.store')->middleware('auth');
+Route::get('/admin/productos/{id}', [App\Http\Controllers\ProductosController::class, 'show'])->name('admin.productos.show')->middleware('auth');
+Route::get('/admin/productos/{id}/edit', [App\Http\Controllers\ProductosController::class, 'edit'])->name('admin.productos.edit')->middleware('auth');
+Route::put('/admin/productos/{id}', [App\Http\Controllers\ProductosController::class, 'update'])->name('admin.productos.update')->middleware('auth');
+Route::delete('/admin/productos/{id}', [App\Http\Controllers\ProductosController::class, 'destroy'])->name('admin.productos.destroy')->middleware('auth');
+
+
 
 

@@ -18,9 +18,7 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> tambien el de "HasRoles" de laravel Spatie*/
     use HasFactory, Notifiable, HasRoles;
 
-    public function empleados(){
-        return $this->hasMany(Empleados::class, 'usuario_id');
-    }
+    
 
     /**
      * Get the attributes that should be cast.
@@ -33,5 +31,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // relacion de llave primaria origen (hasMany) donde 1 usuario puede tener 1 empleado, 
+    public function empleados(){
+        return $this->hasMany(Empleados::class, 'usuario_id');
     }
 }
