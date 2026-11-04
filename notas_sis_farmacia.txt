@@ -138,3 +138,8 @@ despues crear la seccion del boton de los productos de esta forma "<li class="si
 
 video 17: creacion del formulario de "create", nos vamos al controlador para retornar docha vista, ya que en el metodo de "create", listaremos los nombres con el id de la relacion que tiene para que escoga al momento de crear un producto de esta forma "$categorias = Categorias::orderBy('nombre')->get(['id', 'nombre']); $laboratorios = Laboratorio::orderBy('nombre')->get(['id', 'nombre']); $formaFarmaceuticas = FormaFarmaceutica::orderBy('nombre')->get(['id', 'nombre']); $presentaciones = Presentacion::orderBy('nombre')->get(['id', 'nombre']);
 en el return lo mandamos a la vista, 
+
+video 18: vista de detalle de los productos, ahora creamos el boton de "show" productos en el "index" de "/productos" de esta ruta "Route::get('/admin/productos/{id}', [App\Http\Controllers\ProductosController::class, 'show'])->name('admin.productos.show')->middleware('auth');", despues nos vamos al controlador a mostrar la vista del id en el show buscando el id del producto y las relaciones para mostrar los valores de las relaciones del id que tenga de esta forma "$producto = productos::with(['categoria', 'laboratorio', 'formaFarmaceutica', 'presentacion'])->findOrFail($id);"
+y retornando a la vista para que muestre los detalles de lo que tiene guardado, tambien en el controller en el index, traer las relaciones que tiene el registro de productos para traer los nombres, despues crear la vista "show" de los productos 
+
+video 19: 

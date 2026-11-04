@@ -50,29 +50,72 @@
                         </div>
                     @endif
 
-                    <div class="table-responsive">
-                        <table class="table table-striped mb-0">
+                                        <div class="table-responsive">
+                        <table class="table table-striped mb-0 text-nowrap"> {{-- text-nowrap evita que el texto se rompa en varias líneas --}}
                             <thead>
                                 <tr>
-                                    <th style="width: 80px;">#</th>
-                                    <th>Nombre</th>
-                                    <th style="width: 220px;">Acciones</th>
+                                    <th style="width: 50px;">#</th>
+                                    <th>Categoría</th>
+                                    <th>Laboratorio</th>
+                                    <th>Forma <br> farmacéutica</th>
+                                    <th>Presentación</th>
+                                    <th>Código <br> producto</th>
+                                    <th>Código barra</th>
+                                    <th>Nombre <br> comercial</th>
+                                    <th>Nombre <br> genérico</th>
+                                    <th>Concentración</th>
+                                    <th class="text-center">Receta</th>
+                                    <th style="width: 120px;" class="text-center">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($productos as $producto)
                                     <tr>
                                         <td>{{ $productos->firstItem() + $loop->index }}</td>
-                                        {{-- Mostramos el nombre comercial según tu controlador --}}
+                                        
+                                        {{-- Relaciones --}}
+                                        <td>{{ optional($producto->categoria)->nombre ?? 'No definida' }}</td>
+                                        <td>{{ optional($producto->laboratorio)->nombre ?? 'No definido' }}</td>
+                                        <td>{{ optional($producto->formaFarmaceutica)->nombre ?? 'No definida' }}</td>
+                                        <td>{{ optional($producto->presentacion)->nombre ?? 'No definida' }}</td>
+                                        
+                                        {{-- Códigos y Nombres --}}
+                                        <td>{{ $producto->codigo_producto }}</td>
+                                        <td>{{ $producto->codigo_barra ?? 'No definido' }}</td>
                                         <td>{{ $producto->nombre_comercial }}</td>
+                                        <td>{{ $producto->nombre_generico }}</td>
+                                        
+                                        {{-- Concentración (unimos la cantidad con la unidad de medida) --}}
                                         <td>
-                                            {{-- Botón Editar: Redirige a la ruta de edición --}}
-                                            <button type="button" class="btn btn-sm btn-success" onclick="window.location='{{ route('admin.productos.edit', $producto->id) }}'">
+                                            {{ $producto->concentracion }}
+                                            {{-- Si unidad_medida es un string directo en tu modelo, lo imprimimos --}}
+                                            {{ $producto->unidad_medida }} 
+                                        </td>
+
+                                        {{-- Receta (Badge condicional) --}}
+                                        <td class="text-center">
+                                            <span class="badge {{ $producto->usa_receta ? 'bg-warning text-dark' : 'bg-success' }}">
+                                                {{ $producto->usa_receta ? 'Sí' : 'No' }}
+                                            </span>
+                                        </td>
+
+                                        {{-- Acciones --}}
+                                        <td class="text-center">
+                                            {{-- Botón Ver detalle --}}
+                                            <button type="button" class="btn btn-sm btn-primary" title="Ver detalle"
+                                                onclick="window.location='{{ route('admin.productos.show', $producto->id) }}'">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                            
+                                            {{-- Botón Editar --}}
+                                            <button type="button" class="btn btn-sm btn-success" title="Editar"
+                                                onclick="window.location='{{ route('admin.productos.edit', $producto->id) }}'">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
 
-                                            {{-- Botón Eliminar: Abre el modal de la fila --}}
-                                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductoModal-{{ $producto->id }}">
+                                            {{-- Botón Eliminar --}}
+                                            <button type="button" class="btn btn-sm btn-danger" title="Eliminar" data-bs-toggle="modal" 
+                                                data-bs-target="#deleteProductoModal-{{ $producto->id }}">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </td>
@@ -105,7 +148,8 @@
 
                                 @empty
                                     <tr>
-                                        <td colspan="3" class="text-center py-4">
+                                        {{-- Se actualizó el colspan a 12 para abarcar todas las columnas nuevas --}}
+                                        <td colspan="12" class="text-center py-4">
                                             <p class="text-muted mb-0">No hay productos registrados.</p>
                                         </td>
                                     </tr>

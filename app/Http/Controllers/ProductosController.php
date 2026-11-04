@@ -18,9 +18,9 @@ class ProductosController extends Controller
     {
         //variable de busqueda de presentaciones por el nombre
         $search = trim((string) request('search', ''));
-        // consulta con el uso de ORM para listar las presentaciones y paginarlo
-        $productos = productos::when(
-            $search !== '', function ($query) use ($search){
+        // consulta con el uso de ORM para listar las presentaciones y paginarlo junto a las relaciones para traer los nombre de los registros relacionados
+        $productos = productos::with(['categoria', 'laboratorio', 'formaFarmaceutica', 'presentacion'])
+        ->when($search !== '', function ($query) use ($search){
                 $query->where('nombre_comercial', 'like', '%' . $search . '%')
                 ->orWhere('nombre_generico', 'like', '%' . $search . '%')
                 ->orWhere('codigo_producto', 'like', '%' . $search . '%')
@@ -123,9 +123,15 @@ class ProductosController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(productos $productos)
+    public function show(string $id)
     {
-        //
+        //buscar el id del producto y traer las relacion que tienen los modelos para acceder a los valores mediante la relacion
+        $producto = productos::with(['categoria', 'laboratorio', 'formaFarmaceutica', 'presentacion'])->findOrFail($id);
+
+        // pasar a la vista el id y la vista
+        return view('admin.productos.show', [
+            'producto' => $producto
+        ]);
     }
 
     /**
