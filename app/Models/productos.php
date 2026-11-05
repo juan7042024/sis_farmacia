@@ -2,14 +2,27 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 // asi se creo "php artisan make:model productos -mcr"
 class productos extends Model
 {
+    use HasFactory; // para que el factory llene de valores
     //asignacion masiva de los campos de nuevos registros a la BD
-
-    protected $fillable = [
-
+     protected $fillable = [
+        'categoria_id',
+        'laboratorio_id',
+        'forma_farmaceutica_id',
+        'presentacion_id',
+        'codigo_producto',
+        'codigo_barra',
+        'nombre_comercial',
+        'nombre_generico',
+        'concentracion',
+        'accion_terapeutica',
+        'unidad_medida',
+        'usa_receta',
+        'imagen',
     ];
 
     // relacion destino de llave foranea(belongsTo), donde muchos productos pertenecen a 1 categoria

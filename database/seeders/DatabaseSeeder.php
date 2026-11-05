@@ -46,6 +46,13 @@ class DatabaseSeeder extends Seeder
         Laboratorio::factory()->count(20)->create();
         FormaFarmaceutica::factory()->count(20)->create();
         Presentacion::factory()->count(20)->create();
+
+        // llamar al seeder despues de los modelos de arriba similar al orden que deben ir las migraciones donde de ultimo las llaves foraneas son las que se llenas de los otros modelos que generan 
+        // los registros
+        $this->call([
+            // llamar los seeders que vamos a ejecutar
+            ProductosSeeder::class,
+        ]);
         // User::factory(10)->create();
         // se crea este usuario por DEFECTO ejecutanto un "php artisan migrate:fresh --seed" que es el SUPER ADMINISTRADOR DE TODO EL SISTEMA
         $admin = User::firstOrCreate(

@@ -140,6 +140,11 @@ video 17: creacion del formulario de "create", nos vamos al controlador para ret
 en el return lo mandamos a la vista, 
 
 video 18: vista de detalle de los productos, ahora creamos el boton de "show" productos en el "index" de "/productos" de esta ruta "Route::get('/admin/productos/{id}', [App\Http\Controllers\ProductosController::class, 'show'])->name('admin.productos.show')->middleware('auth');", despues nos vamos al controlador a mostrar la vista del id en el show buscando el id del producto y las relaciones para mostrar los valores de las relaciones del id que tenga de esta forma "$producto = productos::with(['categoria', 'laboratorio', 'formaFarmaceutica', 'presentacion'])->findOrFail($id);"
-y retornando a la vista para que muestre los detalles de lo que tiene guardado, tambien en el controller en el index, traer las relaciones que tiene el registro de productos para traer los nombres, despues crear la vista "show" de los productos 
+y retornando a la vista para que muestre los detalles de lo que tiene guardado, tambien en el controller en el index, traer las relaciones que tiene el registro de productos para traer los nombres, despues crear la vista "show" de los productos, despues generar el factory de productos de esta forma "php artisan make:factory ProductosFactory --model=productos", despues ejecutar "php artisan make:seeder ProductosSeeder", dentro poner el seeder "productos::factory()->count(100)->create();", despues debajo de los seeder de las 4 tablas relacionadas con el "productos", llamar al seeder de
+esta forma "$this->call([ProductosSeeder::class,]); ejecutar el "php artisan migrate:fresh --seed"
 
-video 19: 
+video 19: Edicion de productos en laravel formulario con validacion y actualizacion de imagen, para ello en la ruta de "edit", creamos la vista de edit con los valores en el metodo de "edit" de "/productos" pasar el id del productos con los valores relacionados de esta forma "$producto = productos::with(['categoria', 'laboratorio', 'formaFarmaceutica', 'presentacion'])->findOrFail($id);", debajo pasar los modelos para listar en el edit para que pueda cambiar de valor, 
+
+video 20: Eliminacion de productos en laravel modal de confirmacion ahora trabajaremos con el modal de delete -> "Route::delete('/admin/productos/{id}', [App\Http\Controllers\ProductosController::class, 'destroy'])->name('admin.productos.destroy')->middleware('auth');", nos vamos al destroy del producto para hacer la eliminacion, donde mas adelante haremos la eliminacion si no tiene relaciones con otras tablas, de lo contrario no se va eliminar, 
+
+video 21: 
