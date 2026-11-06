@@ -147,4 +147,8 @@ video 19: Edicion de productos en laravel formulario con validacion y actualizac
 
 video 20: Eliminacion de productos en laravel modal de confirmacion ahora trabajaremos con el modal de delete -> "Route::delete('/admin/productos/{id}', [App\Http\Controllers\ProductosController::class, 'destroy'])->name('admin.productos.destroy')->middleware('auth');", nos vamos al destroy del producto para hacer la eliminacion, donde mas adelante haremos la eliminacion si no tiene relaciones con otras tablas, de lo contrario no se va eliminar, 
 
-video 21: 
+video 21: creacion de modulo de proveedores, para ello hay que crear la migracion de los proveedores de esta forma "php artisan make:model Proveedor -mcrf" donde creamos la migracion, controlador, recursos de los metodos del controlador y factory, despues hay que declarar los campos que llevara en la migracion y validar de que este la migracion de "proveedors" de la migracion de "productos", despues crear la migracion con el "php artisan migrate", ahora hay que crar las rutas de los proveedores, pero orientado a modales de esta forma 
+"Route::get('/admin/proveedores', [App\Http\Controllers\ProveedorController::class, 'index'])->name('admin.proveedores.index')->middleware('auth');", despues hay que crear el "index.blade.php" de "/proveedores", ya que dentro tiene los modales de ver proveedor, editar y eliminar proveedor, y en el modelo hay que hacer las asignacion masiva de los campos por los factories, despues nay que ir al controlador en el metodo "index" donde empezamos hacer la consulta de la busqueda y el listado de los proveedores donde tenemos que hacer el archivo "index" de "proveedores" tambien la ruta de acceso
+de esta forma "<li class="sidebar-item {{ request()->routeIs('admin.proveedores.*') ? 'active' : '' }}">", despues hacer el metodo "store" "update" y "destroy", 
+
+video 22: 

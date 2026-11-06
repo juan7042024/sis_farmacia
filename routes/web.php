@@ -79,6 +79,12 @@ Route::get('/admin/productos/{id}/edit', [App\Http\Controllers\ProductosControll
 Route::put('/admin/productos/{id}', [App\Http\Controllers\ProductosController::class, 'update'])->name('admin.productos.update')->middleware('auth');
 Route::delete('/admin/productos/{id}', [App\Http\Controllers\ProductosController::class, 'destroy'])->name('admin.productos.destroy')->middleware('auth');
 
+// RUTA DE LOS PROVEEDORES
+Route::get('/admin/proveedores', [App\Http\Controllers\ProveedorController::class, 'index'])->name('admin.proveedores.index')->middleware('auth');
+Route::post('/admin/proveedores', [App\Http\Controllers\ProveedorController::class, 'store'])->name('admin.proveedores.store')->middleware('auth');
+Route::put('/admin/proveedores/{id}', [App\Http\Controllers\ProveedorController::class, 'update'])->name('admin.proveedores.update')->middleware('auth');
+Route::delete('/admin/proveedores/{id}', [App\Http\Controllers\ProveedorController::class, 'destroy'])->name('admin.proveedores.destroy')->middleware('auth');
+
 
 
 
