@@ -85,6 +85,11 @@ Route::post('/admin/proveedores', [App\Http\Controllers\ProveedorController::cla
 Route::put('/admin/proveedores/{id}', [App\Http\Controllers\ProveedorController::class, 'update'])->name('admin.proveedores.update')->middleware('auth');
 Route::delete('/admin/proveedores/{id}', [App\Http\Controllers\ProveedorController::class, 'destroy'])->name('admin.proveedores.destroy')->middleware('auth');
 
+// RUTA DE LOS LOTES
+Route::get('/admin/lotes', [App\Http\Controllers\LoteController::class, 'index'])->name('admin.lotes.index')->middleware('auth');
+Route::post('/admin/lotes/create', [App\Http\Controllers\LoteController::class, 'store'])->name('admin.lotes.store')->middleware('auth');
+Route::put('/admin/lotes/{id}', [App\Http\Controllers\LoteController::class, 'update'])->name('admin.lotes.update')->middleware('auth');
+Route::delete('/admin/lotes/{id}', [App\Http\Controllers\LoteController::class, 'destroy'])->name('admin.lotes.destroy')->middleware('auth');
 
 
 

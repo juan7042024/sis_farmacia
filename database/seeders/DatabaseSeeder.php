@@ -39,7 +39,8 @@ class DatabaseSeeder extends Seeder
             AjusteSeeder::class,
             SucursalSeeder::class,
             CategoriasSeeder::class,
-            EmpleadosSeeder::class
+            EmpleadosSeeder::class,
+            ProveedorSeeder::class,
         ]);
 
         // generacion de los registros de "LaboratorioFactory" y de "FormaFarmaceutica"

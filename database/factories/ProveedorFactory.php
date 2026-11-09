@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 // asi se creo ""php artisan make:model Proveedor -mcrf" donde creamos la migracion, controlador, recursos de los metodos del controlador y factory"
 class ProveedorFactory extends Factory
 {
+
+    protected $model = Proveedor::class;
     /**
      * Define the model's default state.
      *
@@ -20,6 +22,11 @@ class ProveedorFactory extends Factory
     {
         return [
             //
+            'nombre' => fake()->name(),
+            'telefono' => fake()->phoneNumber(),
+            'email' => fake()->unique()->safeEmail(),
+            'direccion' => fake()->address(),
+            'notas' => fake()->optional()->sentence(),
         ];
     }
 }
