@@ -146,6 +146,13 @@
                 </a>
             </li>
 
+            <li class="sidebar-item {{ request()->routeIs('admin.lotes.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.lotes.index') }}" class="sidebar-link">
+                    <i class="bi bi-box-seam"></i>
+                    <span>Lotes</span>
+                </a>
+            </li>
+
             <li class="sidebar-item {{ request()->routeIs('admin.empleados.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.empleados.index') }}" class="sidebar-link">
                     <i class="bi bi-person-badge"></i>
