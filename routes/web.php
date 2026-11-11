@@ -91,5 +91,10 @@ Route::post('/admin/lotes/create', [App\Http\Controllers\LoteController::class, 
 Route::put('/admin/lotes/{id}', [App\Http\Controllers\LoteController::class, 'update'])->name('admin.lotes.update')->middleware('auth');
 Route::delete('/admin/lotes/{id}', [App\Http\Controllers\LoteController::class, 'destroy'])->name('admin.lotes.destroy')->middleware('auth');
 
+// RUTA DE LOS CLIENTES
+Route::get('/admin/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('admin.clientes.index')->middleware('auth');
+Route::post('/admin/clientes/create', [App\Http\Controllers\ClienteController::class, 'store'])->name('admin.clientes.store')->middleware('auth');
+Route::put('/admin/clientes/{id}', [App\Http\Controllers\ClienteController::class, 'update'])->name('admin.clientes.update')->middleware('auth');
+Route::delete('/admin/clientes/{id}', [App\Http\Controllers\ClienteController::class, 'destroy'])->name('admin.clientes.destroy')->middleware('auth');
 
 
