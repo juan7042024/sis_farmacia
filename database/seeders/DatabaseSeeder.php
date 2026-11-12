@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             EmpleadosSeeder::class,
             ProveedorSeeder::class,
             LoteSeeder::class,
+            ClienteSeeder::class,
         ]);
 
         // generacion de los registros de "LaboratorioFactory" y de "FormaFarmaceutica"
