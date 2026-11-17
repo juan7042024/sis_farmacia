@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('sucursal_id')->constrained('sucursals')->onDelete('cascade');
             $table->string('nombre', 150);
             $table->string('description')->nullable();
-            // indice que se usa en la base de datos, para filtrar mejor, empezara en orden de izquierda a derecha ese orden
+            // indice que se usa en la base de datos, para filtrar mejor, empezara en orden de izquierda a derecha ese orden en las consultas para que se aprovechen los indices
             $table->index(['sucursal_id', 'nombre']);
             $table->timestamps();
         });

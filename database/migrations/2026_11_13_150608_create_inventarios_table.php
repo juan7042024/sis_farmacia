@@ -31,7 +31,7 @@ return new class extends Migration
             $table->date('fecha_registro')->nullable();
 
             $table->enum('estado', ['compra', 'ajuste', 'traslado']);
-
+            // indice que se usa en la base de datos, para filtrar mejor, empezara en orden de izquierda a derecha ese orden
             $table->index(['sucursal_id', 'producto_id', 'lote_id']);
             $table->timestamps();
         });

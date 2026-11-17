@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('estado', 50); // PENDIENTE, COMPLETADA, CANCELADA
             $table->string('comprobante', 255)->nullable();
             $table->string('nota', 255)->nullable();
+
+            // indice que se usa en la base de datos, para filtrar mejor, empezara en orden de izquierda a derecha ese orden
+            $table->index(['sucursal_id', 'proveedor_id', 'usuario_id']);
+
             $table->timestamps();
         });
     }

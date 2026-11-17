@@ -164,4 +164,7 @@ la tabla de "/compras",
 video 25: modulo de inventarios en laravel control de stock, Precios y Ubicaciones, en el modelo de lotes, hay que poner llave foranea de "producto_id" y el "proveedor_id", nos vamos a la migracion de "/lotes" para poner los datos, modelo, factory y seeder, como ponemos esas llaves foraneas, deben estar abajo de los modelos con lo que se relacionara en la migracion, despues hay que crear el modelo de "ubicacion_fisica" de esta forma "php artisan make:model UbicacionFisica -mcr", despues poner los campos, ordenar las migraciones que se ejecuten de ultimo las llaves foraneas, ejemplo la migracion de productos va encima de lotes,
 ya que lotes tiene una llave foranea de "productos", ejecutar "php artisan migrate:fresh --seed", ahora el que sigue es la tabla de "Inventarios" crear de esta forma "php artisan make:model Inventario -mc"
 
-video 26: 
+video 26: construccion de estructura de la tablas de compra, detalle y temporal con indices, en el modelo, empezamos a agregar algunos campos en la migracion de esta forma "php artisan make:model CompraTmp -mcrf", y ordenamos la migracion para que este encima de la migracion de "ubicacion_fisicas", nos vamos a la migracion de "compras" a poner los indices que son estos "$table->index(['sucursal_id', 'proveedor_id', 'usuario_id']);", despues creamos otro modelo de esta forma "php artisan make:model CompraDetalle -mcrf", nos vamos a la migracion a declarar los campos en base al modelo al igual sus indices, despues hacemos un 
+"php artisan migrate:fresh --seed"
+
+video 27: 
