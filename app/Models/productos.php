@@ -44,4 +44,9 @@ class productos extends Model
     public function presentacion(){
         return $this->belongsTo(Presentacion::class, 'presentacion_id');
     }
+
+    // relacion de llave primaria origen (hasMany) donde 1 producto puede tener muchas comprasTmp
+    public function compraTmps(){
+        return $this->hasMany(CompraTmp::class, 'producto_id');
+    }
 }

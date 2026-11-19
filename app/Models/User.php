@@ -37,4 +37,8 @@ class User extends Authenticatable
     public function empleados(){
         return $this->hasMany(Empleados::class, 'usuario_id');
     }
+    // relacion de llave primaria origen (hasMany) donde 1 usuario puede tener muchas comprasTmp
+    public function compraTmps(){
+        return $this->hasMany(CompraTmp::class, 'usuario_id');
+    }
 }

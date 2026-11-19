@@ -26,4 +26,9 @@ class Sucursal extends Model
     public function empleados(){
         return $this->hasMany(Empleados::class, 'sucursal_id');
     } 
+
+    // relacion de llave primaria origen (hasMany) donde 1 sucursal puede tener muchas comprasTmp
+    public function compraTmps(){
+        return $this->hasMany(CompraTmp::class, 'sucursal_id');
+    }
 }

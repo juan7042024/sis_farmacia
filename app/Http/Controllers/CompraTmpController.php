@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Compra;
 use App\Models\CompraTmp;
 use Illuminate\Http\Request;
 // asi se creo ""php artisan make:model CompraTmp -mcrf"
@@ -12,8 +13,12 @@ class CompraTmpController extends Controller
      */
     public function index()
     {
+        // traer las compras ya paginadas
+        $compras = Compra::paginate(10);
         //
-        return view('admin.ordenes_compra.index');
+        return view('admin.ordenes_compra.index', [
+            'compras'=> $compras
+        ]);
     }
 
     /**
@@ -22,6 +27,8 @@ class CompraTmpController extends Controller
     public function create()
     {
         //
+
+        return view('admin.ordenes_compra.create');
     }
 
     /**
