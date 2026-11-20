@@ -174,6 +174,6 @@ video 28: listado de ordenes de compra en laravel 13, vista, tabla, y modelo "co
 y para limpiar el carrito de compras de esta forma "Route::delete('/admin/ordenes_compra/items/', [App\Http\Controllers\CompraTmpController::class, 'clearItems'])->name('admin.ordenes_compra.clearItems')->middleware('auth');", despues ver el detalle de la compra de esta forma "Route::get('/admin/compras/{id}', [App\Http\Controllers\CompraController::class, 'show'])->name('admin.compras.show')->middleware('auth');" despues nos vamos al modelo de "ComprasTmp" donde declaramos los campos, y las relaciones de las llaves foraneas "belongsTo" de cada llave foranea que tiene el modelo, igual en el modelo de "User.php" hacer la relacion origen "hasMany"
 igual en "sucursal.php" y "producto.php" nos vamos a "CompraTmpController.php" donde pasamos a la vista las compras paginadas del modelo, nos vamos al "index.blade.php" de "/ordenes_compras" despues creamos el "create.blade.php" de ordenes de compras
 
-video 29: 
+video 29: Carrito de compras en larave, sistema de ordenes de compra con JS dinamico en el sistema, para ello necesitamos un listado de sucursales, donde debemos ponerle el listado con las relaciones para poderle listar el modelo con dichas relaciones, para ello hay que ir al controlador de "CompraTmpController" en el metodo "Create" pasar los modelos para poder guardar dichas llaves foraneas, despues hay que hacer el metodo de "addItems" recibiendo los valores para su dado de alta y el de actualizar Items, despues (min 4:00)
 
 
