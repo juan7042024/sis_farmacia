@@ -57,7 +57,7 @@ class CompraTmpController extends Controller
     
             // validar que sean requerido estos campos de llave foranea
             $validated = $request->validate([
-                'sucursal_id' => 'required|exists:sucursal,id',
+                'sucursal_id' => 'required|exists:sucursals,id',
                 'producto_id' => 'required|exists:productos,id',
             ]);
     
@@ -114,9 +114,11 @@ class CompraTmpController extends Controller
     public function updateItem(Request $request, $itemId)
     {
     try {
+        // logs de la actualizacion
         Log::info('=== START updateItem ===', ['itemId' => $itemId, 'user_id' => Auth::id()]);
         Log::info('Request data:', $request->all());
 
+        // validacion de los valores que van a entrar
         $validated = $request->validate([
             'cantidad' => 'nullable|numeric|min:0',
             'precio_compra_unidad' => 'nullable|numeric|min:0',
@@ -124,12 +126,15 @@ class CompraTmpController extends Controller
             'porcentaje_ganancia_unidad' => 'nullable|numeric',
         ]);
 
+        // datos validados en el log
         Log::info('Validated data:', $validated);
 
+        // obtener el id de compra
         $item = CompraTmp::where('id', $itemId)
             ->where('usuario_id', Auth::id())
             ->first();
 
+        // si no hay item marcar error            
         if (!$item) {
             Log::warning('Item no encontrado:', ['itemId' => $itemId, 'user_id' => Auth::id()]);
             return response()->json([
@@ -138,33 +143,136 @@ class CompraTmpController extends Controller
             ], 404);
         }
 
+        // de lo contrario, se actualiza los valores que encontramos
         $item->update($validated);
         Log::info('Item actualizado:', $item->toArray());
 
+        // devolver el valor del item actualizado
         return response()->json([
             'success' => true,
             'message' => 'Producto actualizado'
         ], 200);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
+            // error de validacion
             Log::error('ValidationException en updateItem:', $e->errors());
 
+            // mostrar error de validaciones
             return response()->json([
                 'success' => false,
                 'message' => 'Error en validación',
                 'errors' => $e->errors()
             ], 422);
-
+        // error de actualizacion
         } catch (\Exception $e) {
             Log::error('Exception en updateItem:', [
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ]);
-
+            // marcar errores al actualizacion
             return response()->json([
                 'success' => false,
                 'message' => 'Error al actualizar producto: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    //remover el item de compra
+    public function removeItem($itemId)
+    {
+    try {
+        Log::info('RemoveItem llamado con itemId: ' . $itemId . ', usuario: ' . Auth::id());
+
+        // Verificar si el registro existe
+        $existsAny = CompraTmp::where('id', $itemId)->first();
+
+        // si no existe el item, encontrarlo
+        if (!$existsAny) {
+            Log::warning('Item no encontrado con id: ' . $itemId);
+            return response()->json([
+                'success' => false,
+                'message' => 'Producto no encontrado en la base de datos',
+                'debug' => [
+                    'itemId_buscado' => $itemId,
+                    'usuario_actual' => Auth::id()
+                ]
+            ], 404);
+        }
+        // buscar el id de la compraTmp
+        $item = CompraTmp::where('id', $itemId)
+            ->where('usuario_id', Auth::id())
+            ->first();
+            // si no hay item dar un mensaje de error
+        if (!$item) {
+            Log::warning('Item encontrado pero no pertenece al usuario. ItemId: ' . $itemId);
+            return response()->json([
+                'success' => false,
+                'message' => 'No tienes permiso para eliminar este producto',
+            ], 403);
+        }
+        // de lo contrario borrar el registro
+
+        $item->delete();
+
+        // devolver un mensaje en JSON
+        return response()->json([
+            'success' => true,
+            'message' => 'Producto eliminado'
+        ], 200);
+
+        // si ocurre algun error en la eliminacion, aqui se mostrara
+        } catch (\Exception $e) {
+            Log::error('Error en removeItem: ' . $e->getMessage() . ' | ItemId: ' . $itemId);
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar producto: ' . $e->getMessage(),
+                'debug' => [
+                    'exception' => get_class($e),
+                    'itemId' => $itemId
+                ]
+            ], 500);
+        }
+        
+    }
+
+    // METODO PARA LIMPIAR ITEMS
+    public function clearItems(Request $request)
+    {
+        try {
+            // recibe el id de los items
+            $validated = $request->validate([
+                'item_ids' => 'required|array|min:1',
+                'item_ids.*' => 'integer|min:1',
+            ]);
+
+            // buscar el id del usuario autenticado que busque el id del usuario de la validacion
+            $deleted = CompraTmp::where('usuario_id', Auth::id())
+                ->whereIn('id', $validated['item_ids'])
+                ->delete(); // borrar el registro
+
+            // devolverl el carrito limpio
+            return response()->json([
+                'success' => true,
+                'message' => 'Carrito limpiado correctamente',
+                'deleted_count' => $deleted,
+            ], 200);
+
+        // validar los datos invalidos
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Datos inválidos para limpiar carrito',
+                'errors' => $e->errors(),
+            ], 422);
+
+            // mostrar si ocurre algun error
+        } catch (\Exception $e) {
+            Log::error('Error en clearItems: ' . $e->getMessage());
+            // mostrar el error al limpiar el carrito
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al limpiar carrito: ' . $e->getMessage(),
             ], 500);
         }
     }
