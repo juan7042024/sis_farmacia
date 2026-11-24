@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Compra;
+use App\Models\CompraDetalle;
 use App\Models\CompraTmp;
 use App\Models\productos;
 use App\Models\Proveedor;
@@ -275,14 +276,128 @@ class CompraTmpController extends Controller
                 'message' => 'Error al limpiar carrito: ' . $e->getMessage(),
             ], 500);
         }
-    }
+    
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    try {
+        // ===== VALIDAR DATOS =====
+        $validated = $request->validate([
+            'sucursal_id' => 'required|exists:sucursales,id',
+            'proveedor_id' => 'required|exists:proveedores,id',
+            'carrito' => 'required|json',
+        ]);
+
+        // ===== DECODIFICAR CARRITO =====
+        $carrito = json_decode($request->input('carrito'), true) ?? [];
+
+        if (empty($carrito)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'El carrito está vacío'
+            ], 400);
+        }
+
+        $itemsValidos = collect($carrito)
+            ->filter(function ($item) {
+                return isset($item['producto_id'], $item['cantidad'])
+                    && (int) $item['cantidad'] > 0;
+            })
+            ->values();
+
+        if ($itemsValidos->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Debe ingresar al menos un item con cantidad mayor a 0.'
+            ], 422);
+        }
+
+        // ===== INICIAR TRANSACCIÓN (se modificaran 3 modelos a la vez) =====
+        DB::beginTransaction();
+
+        try {
+            $usuarioId = Auth::id(); // usuario ID de la sesion
+            $sucursalId = $validated['sucursal_id'];
+            $proveedorId = $validated['proveedor_id'];
+            $ahora = Carbon::now();
+        
+        $totalCompra = $itemsValidos->sum(function ($item) {
+            return ((float) ($item['cantidad'] ?? 0)) * ((float) ($item['precio_compra'] ?? 0));
+        });
+
+        // ===== CREAR CABECERA DE COMPRA =====
+        $compra = new Compra();
+        $compra->sucursal_id = $sucursalId;
+        $compra->proveedor_id = $proveedorId;
+        $compra->usuario_id = $usuarioId;
+        $compra->fecha_compra = $ahora->toDateString();
+        $compra->total = $totalCompra;
+        $compra->estado = 'pendiente';
+        $compra->comprobante = null;
+        $compra->nota = null;
+        $compra->save();
+
+        $compraId = $compra->id;
+
+        // ===== CREAR DETALLES DE COMPRA =====
+        foreach ($itemsValidos as $item) {
+            $productoId = (int) $item['producto_id'];
+
+            $detalle = new CompraDetalle();
+            $detalle->compra_id = $compraId;
+            $detalle->producto_id = $productoId;
+            $detalle->lote_id = null;
+            $detalle->precio_compra_unidad = (float) ($item['precio_compra'] ?? 0);
+            $detalle->precio_venta_unidad = (float) ($item['precio_venta'] ?? 0);
+            $detalle->porcentaje_ganancia_unidad = (float) ($item['porcentaje_ganancia'] ?? 0);
+            $detalle->cantidad = (int) ($item['cantidad'] ?? 0);
+            $detalle->save();
+        }
+
+        // ===== LIMPIAR TEMPORALES USADOS =====
+        $idsTmp = collect($carrito)
+            ->pluck('id')
+            ->filter()
+            ->map(fn($id) => (int) $id)
+            ->values()
+            ->all();
+
+        if (!empty($idsTmp)) {
+            CompraTmp::where('usuario_id', $usuarioId)
+            ->whereIn('id', $idsTmp)
+            ->delete();
+            }
+
+            // ===== COMMIT TRANSACCIÓN =====
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Compra registrada exitosamente',
+                'compra_id' => $compraId,
+                'redirect' => route('admin.ordenes_compra.index')
+            ], 200);
+
+            } catch (\Exception $e) {
+                DB::rollBack();
+                throw $e;
+            }
+
+            } catch (\Illuminate\Validation\ValidationException $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error en la validación',
+                    'errors' => $e->errors()
+                ], 422);
+
+            } catch (\Exception $e) {
+                Log::error('Error en CompraTmpController@store: ' . $e->getMessage());
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error al guardar la orden: ' . $e->getMessage()
+                ], 500);
+            }
     }
 
     /**

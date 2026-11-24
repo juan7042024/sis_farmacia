@@ -40,6 +40,7 @@
                                     <select id="sucursal_id" name="sucursal_id"
                                         class="form-select form-select-lg @error('sucursal_id') is-invalid @enderror"
                                         required>
+                                        {{-- formulario para requerir de la sucursal --}}
                                         <option value="">-- Selecciona una Sucursal --</option>
                                         @foreach ($sucursales as $sucursal)
                                             <option value="{{ $sucursal->id }}"
@@ -110,6 +111,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="productosBody">
+                                                {{-- foreach para el listado de los productos con JS y blade de php --}}
                                                 @foreach ($productos as $producto)
                                                     <tr class="producto-row" data-id="{{ $producto->id }}"
                                                         data-codigo="{{ $producto->codigo_producto }}"
@@ -160,7 +162,7 @@
                                     </div>
                                 </div>
 
-                                <!-- CAMPOS OCULTOS -->
+                                <!-- CAMPOS OCULTOS que se enviaran al backend hacia la Base de datos en tiempo real con el ajax -->
                                 <input type="hidden" id="producto_id" name="producto_id" value="">
                                 <input type="hidden" id="cantidad" value="1">
                                 <input type="hidden" id="precio_compra" value="0">
@@ -232,6 +234,7 @@
     </div>
 @endsection
 
+{{-- Estilos de la tabla de ordenes --}}
 @push('styles')
     <style>
         .table-hover tbody tr:hover {
@@ -347,13 +350,15 @@
     <script>
         // ===== VARIABLES GLOBALES =====
         let carrito = [];
-        const MONEDA = "{{ $ajuste->divisa ?? 'Bs.' }}";
+        const MONEDA = "{{ $ajuste->divisa ?? 'Bs.' }}"; // toma la moneda del valor en php
         let contadorLinea = 0;
         let paginaActual = 1;
         let itemsPorPagina = 10;
+        // arreglo de la tabla para el guardado de los productos
         let productosOriginales = [];
         let productosVisibles = [];
         let updateItemTimers = {};
+        // agregacion de nuevos productos mediante instanciacion
         let addingProductIds = new Set();
 
         // ===== INICIALIZACIÓN =====
@@ -404,7 +409,7 @@
             });
             paginacionContainer.appendChild(btnAnterior);
 
-            // Números de página
+            //calculo de Números de página
             for (let i = 1; i <= totalPaginas; i++) {
                 const btnPagina = document.createElement('li');
                 btnPagina.className = 'page-item' + (i === paginaActual ? ' active' : '');
