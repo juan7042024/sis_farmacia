@@ -41,4 +41,8 @@ class User extends Authenticatable
     public function compraTmps(){
         return $this->hasMany(CompraTmp::class, 'usuario_id');
     }
+
+    public function compras(){
+        return $this->hasMany(Compra::class, 'usuario_id');
+    }
 }

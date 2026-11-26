@@ -10,7 +10,7 @@ class Proveedor extends Model
 {
     /** @use HasFactory<\Database\Factories\ProveedorFactory> */
     use HasFactory;
-    // asociar el nombre a la migracion(poner el nombre recomendado)
+    // asociar el nombre a la migracion(poner el nombre tal cual de la migracion)
     protected $table = 'proveedors';
 
     //public $timestamps = false; // para desactivar el guardado y actualizado del registro
@@ -24,4 +24,8 @@ class Proveedor extends Model
         'empresa',
         'notas'
     ];
+    // relacion de llave primaria de origen, (has Many) que un proveedor tiene muchas compras
+    public function compras(){
+        return $this->hasMany(Compra::class, 'proveedor_id');
+    }
 }

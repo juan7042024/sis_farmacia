@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->foreignId('compra_id')->constrained('compras')->onDelete('cascade');
             $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
-            $table->foreignId('lote_id')->constrained('lotes')->onDelete('cascade');
+            $table->foreignId('lote_id')->nullable()->constrained('lotes')->onDelete('set null'); // puede ser null el valor(el nullable se pone antes del constrained para que aplique)
 
             $table->decimal('precio_compra_unidad',12,2);
             $table->decimal('precio_venta_unidad',12,2);

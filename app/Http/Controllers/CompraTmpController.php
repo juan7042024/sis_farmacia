@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 // asi se creo ""php artisan make:model CompraTmp -mcrf"
 class CompraTmpController extends Controller
@@ -21,8 +22,8 @@ class CompraTmpController extends Controller
      */
     public function index()
     {
-        // traer las compras ya paginadas
-        $compras = Compra::paginate(10);
+        // traer las compras ya paginadas y con las relaciones
+        $compras = Compra::with(['sucursal', 'proveedor', 'usuario'])->paginate(10);
         //
         return view('admin.ordenes_compra.index', [
             'compras'=> $compras
@@ -276,22 +277,23 @@ class CompraTmpController extends Controller
                 'message' => 'Error al limpiar carrito: ' . $e->getMessage(),
             ], 500);
         }
-    
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    }
+    
+    // metodo de guardar la orden de compra con el store
+    public function store(Request $request){
     try {
-        // ===== VALIDAR DATOS =====
+        // ===== VALIDAR DATOS que recibira hasta el JSON del carrito=====
         $validated = $request->validate([
-            'sucursal_id' => 'required|exists:sucursales,id',
-            'proveedor_id' => 'required|exists:proveedores,id',
+            'sucursal_id' => 'required|exists:sucursals,id',
+            'proveedor_id' => 'required|exists:proveedors,id',
             'carrito' => 'required|json',
         ]);
 
-        // ===== DECODIFICAR CARRITO =====
+        // ===== DECODIFICAR CARRITO (de JSON a entrada a un arreglo) =====
         $carrito = json_decode($request->input('carrito'), true) ?? [];
 
+        // si el carrito esta vacio
         if (empty($carrito)) {
             return response()->json([
                 'success' => false,
@@ -313,7 +315,7 @@ class CompraTmpController extends Controller
             ], 422);
         }
 
-        // ===== INICIAR TRANSACCIÓN (se modificaran 3 modelos a la vez) =====
+        // ===== INICIAR TRANSACCIÓN (se modificaran 3 modelos en el proceso de guardado) =====
         DB::beginTransaction();
 
         try {

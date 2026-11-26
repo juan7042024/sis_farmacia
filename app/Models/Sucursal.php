@@ -31,4 +31,9 @@ class Sucursal extends Model
     public function compraTmps(){
         return $this->hasMany(CompraTmp::class, 'sucursal_id');
     }
+
+    // relacion origen de que 1 sucursal puede tener muchas compras
+    public function compras(){
+        return $this->hasMany(Compra::class, 'sucursal_id');
+    }
 }
